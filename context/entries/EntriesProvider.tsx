@@ -13,26 +13,7 @@ interface Props {
 }
 
 const Entries_INITIAL_STATE: EntriesState = {
-    entries: [
-        {
-            _id: uuidv4(),
-            description: 'Pendiente: Please do me a favor like that',
-            status: 'pending',
-            createdAt: Date.now(),
-        },
-        {
-            _id: uuidv4(),
-            description: 'En-Progeso: Please do me a favor like that so do re',
-            status: 'in-progress',
-            createdAt: Date.now() - 1000000,
-        },
-        {
-            _id: uuidv4(),
-            description: 'Terminadas: Please do me a favor like that love is the answer there are many songs about that',
-            status: 'finished',
-            createdAt: Date.now() - 100000,
-        }
-    ],
+    entries: [],
 }
 export const EntriesProvider:FC<Props> = ({ children }) => {
 
