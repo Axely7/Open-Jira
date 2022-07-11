@@ -9,6 +9,7 @@ import { isValidObjectId } from 'mongoose';
 import { dbEntries } from '../../database';
 import { EntriesContext } from '../../context/entries';
 import { dateFunctions } from '../../utils';
+import { useRouter } from 'next/router';
 
 const validStatus: EntryStatus[] = ['pending', 'in-progress', 'finished']
 
@@ -19,13 +20,15 @@ interface Props {
 
 const EntryPage:FC<Props> = ( { entry } ) => {
 
-    const { updateEntry } = useContext(EntriesContext)
+    const { updateEntry, deleteEntry } = useContext(EntriesContext)
 
     const [inputValue, setInputValue] = useState(entry.description);
     const [status, setStatus] = useState<EntryStatus>(entry.status);
     const [touched, setTouched] = useState(false);
 
     const isNotValid = useMemo(() => inputValue.length <= 0 && touched, [inputValue, touched])
+
+    const router = useRouter()
 
     const onInputValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue( event.target.value );
@@ -47,6 +50,13 @@ const EntryPage:FC<Props> = ( { entry } ) => {
         
 
         updateEntry(updatedEntry)
+        router.push('/');
+    }
+
+    const onDelete = () => {
+        
+        deleteEntry( entry );
+        router.push('/');
     }
 
   return (
@@ -116,6 +126,7 @@ const EntryPage:FC<Props> = ( { entry } ) => {
                 right: 30,
                 backgroundColor: 'red',
             }}
+            onClick={ onDelete }
         >
             <DeleteOutlinedIcon />
         </IconButton>

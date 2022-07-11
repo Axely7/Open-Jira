@@ -37,7 +37,7 @@ export const entriesReducer = ( state: EntriesState, action: EntriesActionType )
         case '[Entry] ENTRY-DELETED':
             return {
                 ...state,
-                entries: [ ...state.entries ]
+                entries: state.entries.filter( entry => entry._id !== action.payload._id )
             }
 
         default:

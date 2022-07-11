@@ -8,7 +8,7 @@ interface ContextProps {
     // Methods
     addNewEntry: (description: string) => void;
     updateEntry: (entry: Entry) => void;
-    deleteEntry: ({ _id }: Entry) => Promise<void>;
+    deleteEntry: (entry: Entry) => void;
 
 }
 

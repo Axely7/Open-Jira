@@ -36,7 +36,7 @@ export const EntriesProvider:FC<Props> = ({ children }) => {
             dispatch({ type: '[Entry] ENTRY-UPDATED', payload: data });
             enqueueSnackbar('Entrada Actualizada', {
                 variant: 'success',
-                autoHideDuration: 1500,
+                autoHideDuration: 2000,
                 anchorOrigin: {
                     vertical: 'top',
                     horizontal: 'right'
@@ -53,10 +53,19 @@ export const EntriesProvider:FC<Props> = ({ children }) => {
         dispatch({ type: '[Entry] Refresh-Data', payload: data })
     }
 
-    const deleteEntry = async ({ _id }: Entry) => {
+    const deleteEntry = async (entryx: Entry) => {
         try {
-            const { data } = await entriesApi.delete<Entry>(`/entries/${_id}`);
+            const { data } = await entriesApi.delete<Entry>(`/entries/${entryx._id}`);
             dispatch({ type: '[Entry] ENTRY-DELETED', payload: data })
+            enqueueSnackbar('Entrada Borrada', {
+                variant: 'error',
+                autoHideDuration: 2000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right'
+                }
+            })
+
         } catch (error) {
             console.log(error)
         }
